@@ -119,15 +119,54 @@ void setup() {
     SONAR::init(13);
     
     Omni.PIDEnable(0.26,0.02,0,10);
+    pinMode(10, INPUT);
+    pinMode(11, INPUT);
+    pinMode(12, INPUT);
+    pinMode(13, INPUT);
     
 }
 
 /****************************************/
 // loop()
 void loop() {
-    demoWithSensors(100,30);
-    //delay(500);
-   //Omni.demoActions(100);
-    //Serial.println("working");
-}
+  int command = 0;
+  for(int i=0; i<4;i++) {
+    command += digitalRead(10+i) * pow(2,i);
+  }
 
+switch (command) {
+  case 1:
+    Omni.setCarAdvance(0);
+    Omni.setCarSpeedMMPS(200,500);
+    Omni.delayMS(200); 
+    break;
+  case 2:
+    Omni.setCarBackoff(0);
+    Omni.setCarSpeedMMPS(200,500);
+    Omni.delayMS(200);
+    break;
+  case 3:
+    Omni.setCarLeft(0);
+    Omni.setCarSpeedMMPS(200,500);
+    Omni.delayMS(200);
+    break;
+  case 4:
+    Omni.setCarRight(0);
+    Omni.setCarSpeedMMPS(200,500);
+    Omni.delayMS(200);
+    break;
+  case 9:
+    Omni.setCarRotateLeft(0);
+    Omni.setCarSpeedMMPS(200,500);
+    Omni.delayMS(200);
+    break;
+  case 10:
+    Omni.setCarRotateRight(0);
+    Omni.setCarSpeedMMPS(200,500);
+    Omni.delayMS(200);
+    break;
+  default:
+    break;
+}
+  
+}
