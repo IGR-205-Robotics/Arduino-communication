@@ -1,3 +1,5 @@
+//#include <SoftwareSerial.h>
+
 #include <EEPROM.h>
 
 //#define _NAMIKI_MOTOR	 //for Namiki 22CL-103501PG80:1
@@ -110,6 +112,13 @@ void demoWithSensors(unsigned int speedMMPS,unsigned int distance) {
     Omni.PIDRegulate();
 }
 
+//const byte rxPin = 12;
+//const byte txPin = 13;
+
+    // Set up a new SoftwareSerial object
+//SoftwareSerial mySerial (rxPin, txPin);
+
+
 /*****************************************/
 // setup()
 void setup() {
@@ -119,20 +128,36 @@ void setup() {
     SONAR::init(13);
     
     Omni.PIDEnable(0.26,0.02,0,10);
-    pinMode(10, INPUT);
-    pinMode(11, INPUT);
-    pinMode(12, INPUT);
-    pinMode(13, INPUT);
+
+//    pinMode(10, INPUT);
+//    pinMode(11, INPUT);
+//    pinMode(12, INPUT);
+//    pinMode(13, INPUT);
+  Serial.begin(115200);
+
+  // Define pin modes for TX and RX
+//    pinMode(rxPin, INPUT);
+//    pinMode(txPin, OUTPUT);
+    
+    // Set the baud rate for the SoftwareSerial object
+//    mySerial.begin(9600);
     
 }
 
 /****************************************/
 // loop()
 void loop() {
-  int command = 0;
-  for(int i=0; i<4;i++) {
-    command += digitalRead(10+i) * pow(2,i);
-  }
+  byte command = 0;
+  if (Serial.available() > 0) {
+//      int x = mySerial.read();
+      int x = Serial.read();
+      command = x;
+    }
+//    Serial.println(command);
+  
+//  for(int i=0; i<4;i++) {
+//    command += digitalRead(10+i) * pow(2,i);
+//  }
 
 switch (command) {
   case 1:

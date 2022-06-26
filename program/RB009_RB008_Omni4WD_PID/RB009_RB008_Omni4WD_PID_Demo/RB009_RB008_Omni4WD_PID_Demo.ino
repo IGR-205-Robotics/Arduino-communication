@@ -62,25 +62,26 @@ void setup() {
 	Omni.PIDEnable(0.31,0.01,0,10);
 
 
- pinMode(10, INPUT);
- pinMode(11, INPUT);
- pinMode(12, INPUT);
- pinMode(13, INPUT);
+// pinMode(10, INPUT);
+// pinMode(11, INPUT);
+// pinMode(12, INPUT);
+// pinMode(13, INPUT);
 Serial.begin(9600);    
 }
 
 void loop() {
 
-int command = 0;
-for(int i=0; i<4;i++) {
-  command += digitalRead(10+i) * pow(2,i);
-}
+//int command = 0;
+//for(int i=0; i<4;i++) {
+//  command += digitalRead(10+i) * pow(2,i);
+//}
+int command = Serial.readString().toInt();
 
 
-Serial.print(digitalRead(10));
-Serial.print(digitalRead(11));
-Serial.print(digitalRead(12));
-Serial.println(digitalRead(13));
+//Serial.print(digitalRead(10));
+//Serial.print(digitalRead(11));
+//Serial.print(digitalRead(12));
+//Serial.println(digitalRead(13));
 
 switch (command) {
   case 1:
